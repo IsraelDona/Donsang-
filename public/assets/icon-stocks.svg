@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Stocks">
+  <circle cx="32" cy="32" r="30" fill="#fdecee" />
+  <rect x="16" y="24" width="32" height="8" rx="4" fill="#b3122b" />
+  <rect x="16" y="36" width="32" height="8" rx="4" fill="#7a0c1c" />
+  <circle cx="50" cy="20" r="6" fill="#b3122b" />
+</svg>

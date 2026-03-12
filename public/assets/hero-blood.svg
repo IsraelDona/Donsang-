@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" role="img" aria-label="Illustration don du sang">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fdecee" />
+      <stop offset="1" stop-color="#ffffff" />
+    </linearGradient>
+  </defs>
+  <rect width="640" height="420" rx="24" fill="url(#bg)" />
+  <rect x="360" y="80" width="200" height="220" rx="24" fill="#fff" stroke="#f3b7c0" />
+  <rect x="392" y="120" width="136" height="32" rx="10" fill="#fce9ec" />
+  <rect x="392" y="170" width="136" height="12" rx="6" fill="#e2e8f0" />
+  <rect x="392" y="196" width="120" height="12" rx="6" fill="#e2e8f0" />
+  <rect x="110" y="120" width="160" height="160" rx="20" fill="#fff" stroke="#f3b7c0" />
+  <rect x="130" y="150" width="120" height="70" rx="10" fill="#fdecee" />
+  <path d="M190 152c0 0 28 40 28 60a28 28 0 1 1-56 0c0-20 28-60 28-60z" fill="#b3122b" />
+  <rect x="170" y="230" width="40" height="28" rx="6" fill="#f3b7c0" />
+  <circle cx="300" cy="270" r="56" fill="#fce9ec" />
+  <rect x="260" y="240" width="80" height="80" rx="16" fill="#fff" stroke="#f3b7c0" />
+  <path d="M300 248c0 0 18 26 18 40a18 18 0 1 1-36 0c0-14 18-40 18-40z" fill="#b3122b" />
+  <rect x="260" y="320" width="260" height="10" rx="5" fill="#e2e8f0" />
+</svg>

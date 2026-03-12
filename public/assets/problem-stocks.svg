@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-label="Probleme stocks">
+  <rect width="120" height="120" rx="24" fill="#fdecee" />
+  <rect x="26" y="40" width="68" height="14" rx="7" fill="#b3122b" />
+  <rect x="26" y="62" width="68" height="14" rx="7" fill="#7a0c1c" />
+  <circle cx="94" cy="34" r="10" fill="#b3122b" />
+</svg>

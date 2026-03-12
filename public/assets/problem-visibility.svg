@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-label="Probleme visibilite">
+  <rect width="120" height="120" rx="24" fill="#fdecee" />
+  <path d="M16 60s18-24 44-24 44 24 44 24-18 24-44 24S16 60 16 60z" fill="#b3122b" />
+  <circle cx="60" cy="60" r="12" fill="#fff" />
+  <circle cx="60" cy="60" r="6" fill="#7a0c1c" />
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" aria-label="Probleme compatibilite">
+  <rect width="120" height="120" rx="24" fill="#fdecee" />
+  <path d="M60 26s20 28 20 42a20 20 0 1 1-40 0c0-14 20-42 20-42z" fill="#b3122b" />
+  <circle cx="84" cy="84" r="16" fill="#fff" stroke="#b3122b" />
+  <path d="M78 84l5 5 9-9" stroke="#b3122b" stroke-width="3" fill="none" />
+</svg>

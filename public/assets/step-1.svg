@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" aria-label="Etape 1">
+  <rect width="160" height="160" rx="24" fill="#ffffff" stroke="#f3b7c0" />
+  <rect x="40" y="30" width="80" height="70" rx="8" fill="#fdecee" />
+  <rect x="30" y="100" width="100" height="30" rx="8" fill="#b3122b" />
+  <rect x="70" y="48" width="20" height="34" rx="4" fill="#b3122b" />
+  <rect x="66" y="60" width="28" height="10" rx="5" fill="#fff" />
+</svg>

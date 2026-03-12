@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" aria-label="Etape 2">
+  <rect width="160" height="160" rx="24" fill="#ffffff" stroke="#f3b7c0" />
+  <rect x="45" y="30" width="70" height="100" rx="12" fill="#fdecee" />
+  <rect x="58" y="46" width="44" height="10" rx="5" fill="#b3122b" />
+  <rect x="58" y="66" width="44" height="8" rx="4" fill="#e2e8f0" />
+  <rect x="58" y="82" width="36" height="8" rx="4" fill="#e2e8f0" />
+  <circle cx="116" cy="50" r="16" fill="#b3122b" />
+  <path d="M110 50l4 4 8-8" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" />
+</svg>
