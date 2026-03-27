@@ -1,108 +1,99 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { auth, db } from "../Services/firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
+import DashboardLayout from "../Components/layout/DashboardLayout";
 
-const BLOOD_GROUPS = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
-
-const DEFAULT_PROFILE = {
-  fullName: "",
-  city: "",
-  bloodGroup: "O+",
-  isAvailable: true,
-  role: "donor",
-};
-
-export default function Profil({ donorProfile = DEFAULT_PROFILE, onSaveProfile = () => {} }) {
-  const [form, setForm] = useState(donorProfile);
-  const isHospital = form.role === "hospital";
+export default function Profil() {
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
-    setForm(donorProfile);
-  }, [donorProfile]);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const snap = await getDoc(doc(db, "users", user.uid));
+        if (snap.exists()) setProfile({ id: user.uid, ...snap.data() });
+        setLoading(false);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
-  const setField = (field, value) => {
-    setForm((current) => ({ ...current, [field]: value }));
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const userRef = doc(db, "users", profile.id);
+      await updateDoc(userRef, profile);
+      setMessage("✅ Profil mis à jour avec succès !");
+      setTimeout(() => setMessage(""), 3000);
+    } catch (err) {
+      setMessage("❌ Erreur lors de la mise à jour.");
+    }
   };
 
-  const submitProfile = (event) => {
-    event.preventDefault();
-    onSaveProfile(form);
-  };
+  if (loading) return <div className="p-10 text-center">Chargement...</div>;
 
   return (
-    <section className="max-w-3xl space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-zinc-900">Profil {isHospital ? "Hopital" : "Donneur"}</h1>
-        <p className="text-zinc-600">
-          Configurez votre profil pour recevoir uniquement les alertes pertinentes.
-        </p>
-      </div>
+    <DashboardLayout profile={profile} onLogout={() => auth.signOut()}>
+      <div className="max-w-2xl mx-auto bg-white p-8 rounded-2xl shadow-sm border">
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">Modifier mon profil</h2>
+        
+        {message && <p className="mb-4 p-3 bg-blue-50 text-blue-700 rounded-lg text-sm">{message}</p>}
 
-      <form onSubmit={submitProfile} className="space-y-5 rounded-xl border border-zinc-200 bg-white p-6">
-        <div>
-          <label className="mb-2 block text-sm font-semibold text-zinc-700">Nom complet</label>
-          <input
-            value={form.fullName}
-            onChange={(event) => setField("fullName", event.target.value)}
-            className="w-full rounded-lg border border-zinc-300 px-3 py-2 outline-none focus:border-red-500"
-            placeholder="Ex: Lea Cohen"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="mb-2 block text-sm font-semibold text-zinc-700">Ville</label>
-          <input
-            value={form.city}
-            onChange={(event) => setField("city", event.target.value)}
-            className="w-full rounded-lg border border-zinc-300 px-3 py-2 outline-none focus:border-red-500"
-            placeholder="Ex: Tel Aviv"
-            required
-          />
-        </div>
-
-        <div>
-          <label className="mb-2 block text-sm font-semibold text-zinc-700">Groupe sanguin</label>
-          <select
-            value={form.bloodGroup}
-            onChange={(event) => setField("bloodGroup", event.target.value)}
-            disabled={isHospital}
-            className="w-full rounded-lg border border-zinc-300 px-3 py-2 outline-none focus:border-red-500"
-          >
-            {BLOOD_GROUPS.map((group) => (
-              <option key={group} value={group}>
-                {group}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="rounded-lg bg-zinc-100 p-4">
-          <p className="mb-3 text-sm font-semibold text-zinc-700">Disponibilite instantanee</p>
-          <div className="flex gap-3">
-            <button
-              type="button"
-              onClick={() => setField("isAvailable", true)}
-              className={`rounded-lg px-4 py-2 font-semibold ${
-                form.isAvailable ? "bg-emerald-600 text-white" : "bg-zinc-300 text-zinc-700"
-              }`}
-            >
-              Disponible
-            </button>
-            <button
-              type="button"
-              onClick={() => setField("isAvailable", false)}
-              className={`rounded-lg px-4 py-2 font-semibold ${
-                !form.isAvailable ? "bg-zinc-700 text-white" : "bg-zinc-300 text-zinc-700"
-              }`}
-            >
-              Indisponible
-            </button>
+        <form onSubmit={handleUpdate} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Nom complet / Établissement</label>
+            <input 
+              type="text" 
+              className="w-full mt-1 border p-3 rounded-xl bg-gray-50 outline-none focus:ring-2 focus:ring-red-500"
+              value={profile.fullName || ""}
+              onChange={(e) => setProfile({...profile, fullName: e.target.value})}
+            />
           </div>
-        </div>
 
-        <button className="rounded-lg bg-red-700 px-5 py-2 font-semibold text-white hover:bg-red-800">
-          Enregistrer le profil
-        </button>
-      </form>
-    </section>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Ville</label>
+            <input 
+              type="text" 
+              className="w-full mt-1 border p-3 rounded-xl bg-gray-50"
+              value={profile.city || ""}
+              onChange={(e) => setProfile({...profile, city: e.target.value})}
+            />
+          </div>
+
+          {/* Champs spécifiques au DONNEUR */}
+          {profile.role === "donor" && (
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Groupe Sanguin</label>
+                <select 
+                  className="w-full mt-1 border p-3 rounded-xl bg-gray-50"
+                  value={profile.bloodGroup}
+                  onChange={(e) => setProfile({...profile, bloodGroup: e.target.value})}
+                >
+                  {["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"].map(g => <option key={g} value={g}>{g}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Disponibilité</label>
+                <select 
+                  className="w-full mt-1 border p-3 rounded-xl bg-gray-50"
+                  value={profile.isAvailable ? "true" : "false"}
+                  onChange={(e) => setProfile({...profile, isAvailable: e.target.value === "true"})}
+                >
+                  <option value="true">Disponible</option>
+                  <option value="false">Indisponible</option>
+                </select>
+              </div>
+            </div>
+          )}
+
+          <button className="w-full bg-red-600 text-white py-3 rounded-xl font-bold hover:bg-red-700 transition shadow-lg shadow-red-100">
+            Enregistrer les modifications
+          </button>
+        </form>
+      </div>
+    </DashboardLayout>
   );
 }

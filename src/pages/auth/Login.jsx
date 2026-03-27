@@ -37,7 +37,7 @@ export default function Login() {
         if (userData.role === "hospital") {
           navigate("/hospital/dashboard");
         } else {
-          navigate("/dashboard");
+          navigate("/donor/dashboard");
         }
       } else {
         setError("Profil utilisateur introuvable.");
